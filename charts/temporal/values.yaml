@@ -242,7 +242,7 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: {}
+    hostAliases: []
   history:
     service:
       # type: ClusterIP
@@ -267,7 +267,7 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: {}
+    hostAliases: []
   matching:
     service:
       # type: ClusterIP
@@ -292,7 +292,7 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: {}
+    hostAliases: []
   worker:
     service:
       # type: ClusterIP
@@ -317,7 +317,7 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: {}
+    hostAliases: []
 admintools:
   enabled: true
   image:
