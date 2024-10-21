@@ -292,6 +292,7 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
+    hostAliases: {}
 admintools:
   enabled: true
   image:
