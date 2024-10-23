@@ -133,7 +133,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: "{{ include "temporal.fullname" $ }}-config"
+            name: "{{ include "temporal.fullname" $ }}-config{{ if eq $service "worker" }}-worker{{ end }}"
         - name: dynamic-config
           configMap:
             name: "{{ include "temporal.fullname" $ }}-dynamic-config"

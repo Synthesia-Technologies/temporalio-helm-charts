@@ -313,6 +313,7 @@ server:
     topologySpreadConstraints: []
     podDisruptionBudget: {}
     hostAliases: []
+    # proxyHost: "proxy-service:7233"
 admintools:
   enabled: true
   image:
