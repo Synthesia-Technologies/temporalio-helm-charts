@@ -1,6 +1,7 @@
 {{- if .Values.server.enabled -}}
 {{- $server := .Values.server -}}
 {{- $elasticsearch := .Values.elasticsearch -}}
+{{- range $service := (list "server" "worker") }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -174,9 +175,10 @@ data:
     {{- end }}
 
     publicClient:
-      hostPort: "{{ include "temporal.componentname" (list $ "frontend") }}:{{ $server.frontend.service.port }}"
+      hostPort: "{{ if (and (eq $service "worker") (hasKey $server.worker proxyHost)) }}{{ $server.worker.proxyHost }}{{ else }}{{ include "temporal.componentname" (list $ "frontend") }}:{{ $server.frontend.service.port }}{{ end }}"
 
     dynamicConfigClient:
       filepath: "/etc/temporal/dynamic_config/dynamic_config.yaml"
       pollInterval: "10s"
+{{- end }}
 {{- end }}
