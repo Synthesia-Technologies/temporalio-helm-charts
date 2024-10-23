@@ -183,7 +183,7 @@ data:
     {{- end }}
 
     publicClient:
-      hostPort: "{{ if (and (eq $service "worker") (hasKey $server.worker proxyHost)) }}{{ $server.worker.proxyHost }}{{ else }}{{ include "temporal.componentname" (list $ "frontend") }}:{{ $server.frontend.service.port }}{{ end }}"
+      hostPort: "{{ if (and (eq $service "worker") (hasKey $server.worker proxyHost)) }}{{ default $server.worker.proxyHost "" }}{{ else }}{{ include "temporal.componentname" (list $ "frontend") }}:{{ $server.frontend.service.port }}{{ end }}"
 
     dynamicConfigClient:
       filepath: "/etc/temporal/dynamic_config/dynamic_config.yaml"
