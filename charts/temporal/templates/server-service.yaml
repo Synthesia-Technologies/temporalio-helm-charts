@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "temporal.componentname" (list $ "frontend") }}
+  name: {{ include "temporal.componentname" (list $ "frontend") }}-internal
   labels:
     {{- include "temporal.resourceLabels" (list $ "frontend" "") | nindent 4 }}
   {{- if .Values.server.internalFrontend.service.annotations }}
