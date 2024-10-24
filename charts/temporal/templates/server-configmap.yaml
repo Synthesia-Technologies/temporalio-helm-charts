@@ -188,4 +188,3 @@ data:
       filepath: "/etc/temporal/dynamic_config/dynamic_config.yaml"
       pollInterval: "10s"
 {{- end }}
-{{- end }}
