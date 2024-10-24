@@ -237,7 +237,6 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: []
   internalFrontend:
     enabled: false
     service:
@@ -266,7 +265,6 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: []
   matching:
     service:
       # type: ClusterIP
@@ -289,7 +287,6 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: []
   worker:
     service:
       # type: ClusterIP
@@ -312,8 +309,6 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-    hostAliases: []
-    # proxyHost: "proxy-service:7233"
 admintools:
   enabled: true
   image:
