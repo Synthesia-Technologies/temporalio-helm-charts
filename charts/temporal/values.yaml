@@ -238,6 +238,12 @@ server:
     topologySpreadConstraints: []
     podDisruptionBudget: {}
     hostAliases: []
+  internalFrontend:
+    enabled: false
+    service:
+      # type: ClusterIP
+      port: 7236
+      membershipPort: 6936
   history:
     service:
       # type: ClusterIP

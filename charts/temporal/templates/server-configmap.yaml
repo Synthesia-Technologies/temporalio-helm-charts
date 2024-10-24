@@ -120,6 +120,14 @@ data:
           membershipPort: {{ $server.frontend.service.membershipPort }}
           bindOnIP: "0.0.0.0"
 
+      {{- if $server.internalFrontend.enabled }}
+      internal-frontend:
+        rpc:
+          grpcPort: {{ $server.internalFrontend.service.port }}
+          membershipPort: {{ $server.internalFrontend.service.membershipPort }}
+          bindOnIP: "0.0.0.0"
+      {{- end }}
+
       history:
         rpc:
           grpcPort: {{ $server.history.service.port }}
