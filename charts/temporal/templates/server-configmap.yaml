@@ -181,8 +181,11 @@ data:
       {{- toYaml . | nindent 6 }}
     {{- end }}
 
+    {{- if if $server.internalFrontend.enabled}}
+    {{- else }}
     publicClient:
       hostPort: "{{ include "temporal.componentname" (list $ "frontend") }}:{{ $server.frontend.service.port }}"
+    {{- end }}
 
     dynamicConfigClient:
       filepath: "/etc/temporal/dynamic_config/dynamic_config.yaml"
