@@ -27,8 +27,32 @@ spec:
     app.kubernetes.io/name: {{ include "temporal.name" $ }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: frontend
-
 ---
+
+{{- if $.Values.server.internalFrontend.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "temporal.componentname" (list $ "frontend") }}
+  labels:
+    {{- include "temporal.resourceLabels" (list $ "frontend" "") | nindent 4 }}
+  {{- if .Values.server.internalFrontend.service.annotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.server.internalFrontend.service.annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.server.internalFrontend.service.type }}
+  ports:
+    - port: {{ .Values.server.internalFrontend.service.port }}
+      targetPort: rpc-internal
+      protocol: TCP
+      name: grpc-rpc
+  selector:
+    app.kubernetes.io/name: {{ include "temporal.name" $ }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: frontend
+---
+{{- end }}
+
 {{- range $service := (list "frontend" "matching" "history" "worker") }}
 {{ $serviceValues := index $.Values.server $service }}
 apiVersion: v1
