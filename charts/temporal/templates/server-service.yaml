@@ -43,7 +43,7 @@ spec:
   type: {{ .Values.server.internalFrontend.service.type }}
   ports:
     - port: {{ .Values.server.internalFrontend.service.port }}
-      targetPort: rpc
+      targetPort: rpc-internal
       protocol: TCP
       name: grpc-rpc
   selector:
