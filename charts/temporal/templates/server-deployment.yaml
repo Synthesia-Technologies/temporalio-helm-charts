@@ -94,6 +94,11 @@ spec:
               containerPort: {{ $serviceValues.service.port }}
               protocol: TCP
           {{- end }}
+          {{- if and (eq $service "frontend") ($.Values.server.internalFrontend.enabled) }}
+            - name: rpc-internal
+              containerPort: {{ $.Values.server.internalFrontend.service.port }}
+              protocol: TCP
+          {{- end }}
           {{- if eq $service "frontend" }}
             - name: http
               containerPort: {{ $serviceValues.service.httpPort }}
