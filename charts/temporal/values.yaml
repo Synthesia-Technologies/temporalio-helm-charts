@@ -220,6 +220,17 @@ server:
       #  - secretName: chart-example-tls
       #    hosts:
       #      - chart-example.local
+    # Enables internal-frontend so that the builtin worker can access the frontend while
+    # bypassing authorizer and claim mapper.
+    # Equivalent to env.USE_INTERNAL_FRONTEND in docker compose config
+    internal:
+      enabled: false
+      service:
+        # Evaluated as template
+        annotations: {}
+        type: ClusterIP
+        port: 7236
+        membershipPort: 6936
     metrics:
       annotations:
         enabled: true
@@ -237,14 +248,6 @@ server:
     containerSecurityContext: {}
     topologySpreadConstraints: []
     podDisruptionBudget: {}
-  internalFrontend:
-    enabled: false
-    service:
-      # Evaluated as template
-      annotations: {}
-      type: ClusterIP
-      port: 7236
-      membershipPort: 6936
   history:
     service:
       # type: ClusterIP
