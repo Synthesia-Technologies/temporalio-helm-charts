@@ -69,7 +69,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-          {{- if and (eq $service "frontend") ($.Values.server.internalFrontend.enabled) }}
+          {{- if and (eq $service "frontend") ($.Values.server.frontend.internal.enabled) }}
             - name: SERVICES
               value: "{{ $service }}:internal-frontend"
           {{- else }}
@@ -99,9 +99,9 @@ spec:
               containerPort: {{ $serviceValues.service.port }}
               protocol: TCP
           {{- end }}
-          {{- if and (eq $service "frontend") ($.Values.server.internalFrontend.enabled) }}
+          {{- if and (eq $service "frontend") ($.Values.server.frontend.internal.enabled) }}
             - name: rpc-internal
-              containerPort: {{ $.Values.server.internalFrontend.service.port }}
+              containerPort: {{ $serviceValues.internal.service.port }}
               protocol: TCP
           {{- end }}
           {{- if eq $service "frontend" }}
