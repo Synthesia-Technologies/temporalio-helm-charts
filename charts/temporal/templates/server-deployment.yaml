@@ -69,8 +69,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          {{- if and (eq $service "frontend") ($.Values.server.internalFrontend.enabled) }}
+            - name: SERVICES
+              value: "{{ $service }}:internal-frontend"
+          {{- else }}
             - name: SERVICES
               value: {{ $service }}
+          {{- end }}
             - name: TEMPORAL_STORE_PASSWORD
               valueFrom:
                 secretKeyRef:
