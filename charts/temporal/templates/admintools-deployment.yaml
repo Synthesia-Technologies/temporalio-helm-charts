@@ -32,10 +32,21 @@ spec:
               protocol: TCP
           env:
             # TEMPORAL_CLI_ADDRESS is deprecated, use TEMPORAL_ADDRESS instead
+            {{-  $serviceAddressInternal := printf "%s-frontend-internal:%s" (include "temporal.fullname" $) .Values.server.frontend.internal.service.port -}}
+            {{-  $serviceAddress := printf "%s-frontend:%s" (include "temporal.fullname" $) .Values.server.frontend.service.port -}}
+            {{- if $.Values.server.frontend.internal.enabled }}
             - name: TEMPORAL_CLI_ADDRESS
-              value: {{ include "temporal.fullname" $ }}-frontend:{{ .Values.server.frontend.service.port }}
+              value: {{ $serviceAddressInternal }}
             - name: TEMPORAL_ADDRESS
-              value: {{ include "temporal.fullname" $ }}-frontend:{{ .Values.server.frontend.service.port }}
+              value: {{ $serviceAddressInternal }}
+            - name: USE_INTERNAL_FRONTEND
+              value: "true"
+            {{- else }}
+            - name: TEMPORAL_CLI_ADDRESS
+              value: {{ $serviceAddress }}
+            - name: TEMPORAL_ADDRESS
+              value: {{ $serviceAddress }}
+          {{- end }}
           {{- if .Values.admintools.additionalEnv }}
           {{- toYaml .Values.admintools.additionalEnv | nindent 12 }}
           {{- end }}
