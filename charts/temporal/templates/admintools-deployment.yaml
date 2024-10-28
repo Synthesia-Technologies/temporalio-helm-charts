@@ -32,8 +32,8 @@ spec:
               protocol: TCP
           env:
             # TEMPORAL_CLI_ADDRESS is deprecated, use TEMPORAL_ADDRESS instead
-            {{-  $serviceAddressInternal := printf "%s-frontend-internal:%d" (include "temporal.fullname" $) .Values.server.frontend.internal.service.port -}}
-            {{-  $serviceAddress := printf "%s-frontend:%d" (include "temporal.fullname" $) .Values.server.frontend.service.port -}}
+            {{-  $serviceAddressInternal := printf "%s-frontend-internal:%d" (include "temporal.fullname" $) (.Values.server.frontend.internal.service.port | int) -}}
+            {{-  $serviceAddress := printf "%s-frontend:%d" (include "temporal.fullname" $) (.Values.server.frontend.service.port | int) -}}
             {{- if $.Values.server.frontend.internal.enabled }}
             - name: TEMPORAL_CLI_ADDRESS
               value: {{ $serviceAddressInternal }}
